@@ -21,19 +21,19 @@ resource "null_resource" "new_1" {
 
 resource "null_resource" "new_2" {
   triggers = {
-    pet_name = null
+    pet_name = random_pet.example.id
   }
 }
 
 resource "null_resource" "new_3" {
   triggers = {
-     pet_name = null
+    pet_name = null
   }
 }
 
 resource "null_resource" "new_4" {
   triggers = {
-    pet_name = random_pet.example.id
+    pet_name = null
   }
 }
 
