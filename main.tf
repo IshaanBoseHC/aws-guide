@@ -1,32 +1,61 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
-provider "aws" {
-  region = var.region
+terraform {
+  required_providers {
+    null = {
+      source = "hashicorp/null"
+      version = "3.2.4"
+    }
+  }
 }
 
+provider "null" {
+  # Configuration options
+}
 
+resource "aws_instance" "green" {
+  count         = 3
+  ami           = "ami-0dcc1e21636832c5d"
+  instance_type = "m5.large"
 
+  # ...
+}
 
+resource "aws_instance" "blue" {
+  count         = 3
+  ami           = "ami-0dcc1e21636832c5d"
+  instance_type = "m5.large"
 
+  # ...
+}
 
-resource "null_resource" "cluster" {
-  # Changes to any instance of the cluster requires re-provisioning
-  triggers = {
-    cluster_instance_ids = join(",", aws_instance.cluster[*].id)
+data "null_data_source" "values" {
+  inputs = {
+    all_server_ids = concat(
+      aws_instance.green[*].id,
+      aws_instance.blue[*].id,
+    )
+    all_server_ips = concat(
+      aws_instance.green[*].private_ip,
+      aws_instance.blue[*].private_ip,
+    )
   }
+}
 
-  # Bootstrap script can run on any instance of the cluster
-  # So we just choose the first in this case
-  connection {
-    host = element(aws_instance.cluster[*].public_ip, 0)
-  }
+resource "aws_elb" "main" {
+  instances = data.null_data_source.values.outputs["all_server_ids"]
 
-  provisioner "remote-exec" {
-    # Bootstrap script called with private_ip of each node in the cluster
-    inline = [
-      "bootstrap-cluster.sh ${join(" ",
-      aws_instance.cluster[*].private_ip)}",
-    ]
+  # ...
+  listener {
+    instance_port     = 8000
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
   }
+}
+
+output "all_server_ids" {
+  value = data.null_data_source.values.outputs["all_server_ids"]
+}
+
+output "all_server_ips" {
+  value = data.null_data_source.values.outputs["all_server_ips"]
 }

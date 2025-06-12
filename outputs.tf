@@ -1,11 +1,11 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-output "instance_ami" {
-  value = aws_instance.ubuntu.ami
+output "all_server_ids" {
+  value = data.null_data_source.values.outputs["all_server_ids"]
 }
 
-output "instance_arn" {
-  value = aws_instance.ubuntu.arn
+output "all_server_ips" {
+  value = data.null_data_source.values.outputs["all_server_ips"]
 }
 
