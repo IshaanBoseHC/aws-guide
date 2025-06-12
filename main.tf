@@ -21,11 +21,25 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
 
-  tags = {
-    Name = var.instance_name
+
+resource "null_resource" "cluster" {
+  # Changes to any instance of the cluster requires re-provisioning
+  triggers = {
+    cluster_instance_ids = join(",", aws_instance.cluster[*].id)
+  }
+
+  # Bootstrap script can run on any instance of the cluster
+  # So we just choose the first in this case
+  connection {
+    host = element(aws_instance.cluster[*].public_ip, 0)
+  }
+
+  provisioner "remote-exec" {
+    # Bootstrap script called with private_ip of each node in the cluster
+    inline = [
+      "bootstrap-cluster.sh ${join(" ",
+      aws_instance.cluster[*].private_ip)}",
+    ]
   }
 }
