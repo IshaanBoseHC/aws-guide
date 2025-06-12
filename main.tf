@@ -21,13 +21,13 @@ resource "null_resource" "new_1" {
 
 resource "null_resource" "new_2" {
   triggers = {
-    pet_name = null;
+    pet_name = null
   }
 }
 
 resource "null_resource" "new_3" {
   triggers = {
-     pet_name = null;
+     pet_name = null
   }
 }
 
