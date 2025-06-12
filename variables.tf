@@ -1,18 +1,32 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
-variable "region" {
-  description = "AWS region"
-  default     = "us-west-1"
+variable "example_string" {
+  type        = string
+  description = "An example string variable"
+  default     = "Hello, World!"
 }
 
-variable "instance_type" {
-  description = "Type of EC2 instance to provision"
-  default     = "t2.micro"
+variable "example_number" {
+  type        = number
+  description = "An example number variable"
+  default     = 42
 }
 
-variable "instance_name" {
-  description = "EC2 instance name"
-  default     = "Provisioned by Terraform"
+variable "example_bool" {
+  type        = bool
+  description = "An example boolean variable"
+  default     = true
 }
 
+variable "example_list" {
+  type        = list(string)
+  description = "An example list variable"
+  default     = ["apple", "banana", "cherry"]
+}
+
+variable "example_map" {
+  type        = map(string)
+  description = "An example map variable"
+  default = {
+    key1 = "value1"
+    key2 = "value2"
+  }
+}
