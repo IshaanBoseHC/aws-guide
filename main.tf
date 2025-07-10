@@ -43,7 +43,7 @@ resource "null_resource" "new_5" {
   }
 
   provisioner "local-exec" {
-    command = "echo The server's IP address is ${random_pet.example.id}"
+     command = "echo creation provisioner was run"
   }
 }
 
