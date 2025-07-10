@@ -41,6 +41,17 @@ resource "null_resource" "new_5" {
   triggers = {
     pet_name = random_pet.example.id
   }
+}
+
+
+resource "null_resource" "new_6" {
+  triggers = {
+    pet_name = random_pet.example.id
+  }
+
+
+
+  
 
   provisioner "local-exec" {
      command = "echo creation provisioner was run"
