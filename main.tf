@@ -12,7 +12,7 @@ resource "null_resource" "example_2" {
   }
 
    lifecycle {
-    create_before_destroy = true
+    prevent_destroy = true
   }
 
   
