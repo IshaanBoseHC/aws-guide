@@ -23,11 +23,17 @@ resource "null_resource" "new_1" {
   triggers = {
     pet_name = random_pet.example.id
   }
+   lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "null_resource" "new_2" {
   triggers = {
     pet_name = random_pet.example.id
+  }
+   lifecycle {
+    prevent_destroy = true
   }
 }
 
