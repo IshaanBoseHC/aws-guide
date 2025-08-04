@@ -4,6 +4,7 @@ terraform {
 
 resource "random_pet" "example" {
   length = 4
+  count = 100 # create four similar EC2 instances
 }
 
 resource "null_resource" "example_2" {
@@ -72,13 +73,3 @@ resource "null_resource" "new_6" {
 
 
 
-resource "aws_instance" "server" {
-  count = 4 # create four similar EC2 instances
-
-  ami           = "ami-a1b2c3d4"
-  instance_type = "t2.micro"
-
-  tags = {
-    Name = "Server ${count.index}"
-  }
-}
