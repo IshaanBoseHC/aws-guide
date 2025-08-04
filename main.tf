@@ -4,72 +4,21 @@ terraform {
 
 resource "random_pet" "example" {
   length = 4
-  count = 100 # create four similar EC2 instances
+  count  = 100
 }
 
-resource "null_resource" "example_2" {
+resource "null_resource" "example_with_pet" {
+  count = 100
+
   triggers = {
-    pet_name = random_pet.example.id
+    pet_name = random_pet.example[count.index].id
   }
 
-   lifecycle {
+  lifecycle {
     prevent_destroy = true
   }
-
-  
-}
-
-# New null resources
-resource "null_resource" "new_1" {
-  triggers = {
-    pet_name = random_pet.example.id
-  }
-   lifecycle {
-    prevent_destroy = true
-  }
-}
-
-resource "null_resource" "new_2" {
-  triggers = {
-    pet_name = random_pet.example.id
-  }
-   lifecycle {
-    prevent_destroy = true
-  }
-}
-
-resource "null_resource" "new_3" {
-  triggers = {
-    pet_name = random_pet.example.id
-  }
-}
-
-resource "null_resource" "new_4" {
-  triggers = {
-    pet_name = random_pet.example.id
-  }
-}
-
-resource "null_resource" "new_5" {
-  triggers = {
-    pet_name = random_pet.example.id
-  }
-}
-
-
-resource "null_resource" "new_6" {
-  triggers = {
-    pet_name = random_pet.example.id
-  }
-
-
-
-  
 
   provisioner "local-exec" {
-     command = "echo creation provisioner was run"
+    command = "echo Pet name is ${random_pet.example[count.index].id}"
   }
 }
-
-
-
