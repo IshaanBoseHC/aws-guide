@@ -10,6 +10,12 @@ resource "null_resource" "example_2" {
   triggers = {
     pet_name = random_pet.example.id
   }
+
+   lifecycle {
+    create_before_destroy = true
+  }
+
+  
 }
 
 # New null resources
