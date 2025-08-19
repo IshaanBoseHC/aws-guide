@@ -4,19 +4,17 @@ terraform {
 
 resource "random_pet" "example" {
   length = 4
-  count  = 50
+  count  = 10
 }
 
 resource "null_resource" "example_with_pet" {
-  count = 50
+  count = 10
 
   triggers = {
     pet_name = random_pet.example[count.index].id
   }
 
-  lifecycle {
-    prevent_destroy = true
-  }
+ 
 
   provisioner "local-exec" {
     command = "echo Pet name is ${random_pet.example[count.index].id}"
