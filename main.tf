@@ -8,7 +8,7 @@ resource "random_pet" "example" {
 }
 
 resource "null_resource" "example_with_pet" {
-  count = 100
+  count = 50
 
   triggers = {
     pet_name = random_pet.example[count.index].id
