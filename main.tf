@@ -4,7 +4,7 @@ terraform {
 
 resource "random_pet" "example" {
   length = 4
-  count  = 100
+  count  = 50
 }
 
 resource "null_resource" "example_with_pet" {
