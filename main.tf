@@ -15,7 +15,7 @@ variable "tf_organization" {
 variable "tf_project" {
   type        = string
   description = "The name of the project that this workspace and Stack live in."
-  default     = "source-workspaces"
+  default     = "project1"
 
 }
 
