@@ -30,3 +30,6 @@ variable "example_map" {
     key2 = "value2"
   }
 }
+
+
+
