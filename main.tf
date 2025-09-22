@@ -1,4 +1,3 @@
-# main.tf
 
 variable "aws_region" {
   type        = string
@@ -9,21 +8,21 @@ variable "aws_region" {
 variable "tf_organization" {
   type        = string
   description = "The name of the organization that this workspace and Stack live in."
-     default     = "IshaansTesterOrganization"
+  default     = "IshaansTesterOrganization"
 
 }
 
 variable "tf_project" {
   type        = string
   description = "The name of the project that this workspace and Stack live in."
-   default     = "Default Project"
+  default     = "source-workspaces"
 
 }
 
 variable "tf_stack" {
   type        = string
   description = "The name of the Stack you will you use this token in."
-     default     = "stack1"
+  default     = "stack1"
 
 }
 
